@@ -10,6 +10,7 @@ import {
 import { StarRatingComponent } from '../../../shared/ui/star-rating/star-rating.component';
 import { SearchComponent } from '../../partials/search/search.component';
 import { TagsComponent } from "../../partials/tags/tags.component";
+import { NotFoundComponent } from "../../partials/not-found/not-found.component";
 
 @Component({
     selector: 'app-home',
@@ -22,7 +23,8 @@ import { TagsComponent } from "../../partials/tags/tags.component";
         RouterLinkActive,
         StarRatingComponent,
         SearchComponent,
-        TagsComponent
+        TagsComponent,
+        NotFoundComponent
     ]
 })
 export class HomeComponent {
