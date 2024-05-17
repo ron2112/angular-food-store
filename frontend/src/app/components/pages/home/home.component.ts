@@ -11,6 +11,7 @@ import { StarRatingComponent } from '../../../shared/ui/star-rating/star-rating.
 import { SearchComponent } from '../../partials/search/search.component';
 import { TagsComponent } from "../../partials/tags/tags.component";
 import { NotFoundComponent } from "../../partials/not-found/not-found.component";
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'app-home',
@@ -34,14 +35,19 @@ export class HomeComponent {
     private foodService: FoodService,
     activatedRoute: ActivatedRoute
   ) {
+    let foodsObservable:Observable<Food[]>;
     activatedRoute.params.subscribe((params) => {
       if (params['searchTerm'])
-        this.foods = this.foodService.getAllFoodsBySearchTerm(
+        foodsObservable = this.foodService.getAllFoodsBySearchTerm(
           params['searchTerm']
         );
       else if (params['tag'])
-        this.foods = this.foodService.getAllFoodsByTags(params['tag']);
-      else this.foods = foodService.getAll();
+        foodsObservable = this.foodService.getAllFoodsByTags(params['tag']);
+      else foodsObservable = foodService.getAll();
+
+      foodsObservable.subscribe((serverFoods) => {
+        this.foods = serverFoods;
+      })
     });
   }
 }
